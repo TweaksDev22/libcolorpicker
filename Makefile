@@ -1,10 +1,5 @@
-ifdef DEBUG
-	ARCHS = arm64
-	TARGET = iphone:clang:11.2
-else
-	ARCHS = armv7 armv7s arm64 arm64e
-	TARGET = iphone:clang:9.2:6.0
-endif
+export THEOS_PACKAGE_SCHEME=rootless
+export TARGET = iphone:clang:12.4:12.0
 
 
 include $(THEOS)/makefiles/common.mk
@@ -15,7 +10,7 @@ $(LIBRARY_NAME)_FILES = libcolorpicker.mm UIColor+PFColor.m PFColorPicker.m PFCo
 $(LIBRARY_NAME)_FRAMEWORKS = UIKit CoreGraphics Foundation Social Accounts
 $(LIBRARY_NAME)_PRIVATE_FRAMEWORKS = Preferences
 $(LIBRARY_NAME)_LDFLAGS += -Wl,-segalign,4000
-$(LIBRARY_NAME)_CFLAGS = -fobjc-arc
+$(LIBRARY_NAME)_CFLAGS = -fobjc-arc -Wno-deprecated-declarations
 PFColorAlert.m_CFLAGS = -fno-objc-arc
 PFSimpleLiteColorCell.mm_CFLAGS = -fno-objc-arc
 PFLiteColorCell.mm_CFLAGS = -fno-objc-arc
