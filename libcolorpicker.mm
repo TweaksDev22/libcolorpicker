@@ -136,7 +136,7 @@ UIColor *colorFromHex(NSString *hexString) {
 
 // do not use this method anymore
 UIColor *colorFromDefaultsWithKey(NSString *defaults, NSString *key, NSString *fallback) {
-    NSMutableDictionary *preferencesPlist = [NSMutableDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", defaults]];
+    NSMutableDictionary *preferencesPlist = [NSMutableDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/var/jb/var/mobile/Library/Preferences/%@.plist", defaults]];
     //fallback
     UIColor *fallbackColor = colorFromHex(fallback);
     CGFloat currentAlpha = 1.0f;

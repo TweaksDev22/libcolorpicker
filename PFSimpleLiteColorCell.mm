@@ -41,7 +41,7 @@
 }
 
 - (UIColor *)previewColor {
-    NSString *plistPath =  [NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", self.options[kDefaults]];
+    NSString *plistPath =  [NSString stringWithFormat:@"/var/jb/var/mobile/Library/Preferences/%@.plist", self.options[kDefaults]];
 
     NSMutableDictionary *prefsDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     if (!prefsDict)
@@ -65,14 +65,14 @@
 
     // HBLogDebug(@"Loading with options %@", self.options);
 
-    NSString *plistPath =  [NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", self.options[kDefaults]];
+    NSString *plistPath =  [NSString stringWithFormat:@"/var/jb/var/mobile/Library/Preferences/%@.plist", self.options[kDefaults]];
 
     NSMutableDictionary *prefsDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     if (!prefsDict)
         prefsDict = [NSMutableDictionary dictionary];
 
     UIColor *startColor = LCPParseColorString([prefsDict objectForKey:self.options[kKey]], self.options[kFallback]); // this color will be used at startup
-    BOOL showAlpha = self.options[kAlpha] ? [self.options[kAlpha] boolValue] : NO;
+    BOOL showAlpha = self.options[kAlpha] ? [self.options[kAlpha] boolValue] : YES;
     self.alert = [PFColorAlert colorAlertWithStartColor:startColor
                                               showAlpha:showAlpha];
 

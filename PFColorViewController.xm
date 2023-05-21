@@ -432,7 +432,7 @@ UIColor *colorFromDefaultsWithKey(NSString *defaults, NSString *key, NSString *f
         _currentAlpha = _alphaSlider.value;
     }
 
-    NSMutableDictionary *preferencesPlist = [NSMutableDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", self.defaults]];
+    NSMutableDictionary *preferencesPlist = [NSMutableDictionary dictionaryWithContentsOfFile:[NSString stringWithFormat:@"/var/jb/var/mobile/Library/Preferences/%@.plist", self.defaults]];
 
     if (!preferencesPlist)
         preferencesPlist = [NSMutableDictionary new];
@@ -445,7 +445,7 @@ UIColor *colorFromDefaultsWithKey(NSString *defaults, NSString *key, NSString *f
 
     if (saveValue && self.key) {
         [preferencesPlist setObject:saveValue forKey:self.key];
-        [preferencesPlist writeToFile:[NSString stringWithFormat:@"/var/mobile/Library/Preferences/%@.plist", self.defaults] atomically:YES];
+        [preferencesPlist writeToFile:[NSString stringWithFormat:@"/var/jb/var/mobile/Library/Preferences/%@.plist", self.defaults] atomically:YES];
         CFPreferencesSetAppValue((CFStringRef)self.key,(CFStringRef)saveValue, (CFStringRef)self.defaults);
         CFPreferencesAppSynchronize((CFStringRef)self.defaults);
     }
