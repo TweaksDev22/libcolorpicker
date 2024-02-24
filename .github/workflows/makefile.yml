@@ -2,26 +2,44 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
-
+    branches: [ "main" ]
+    
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@main
 
-    - name: configure
-      run: ./configure
+      - name: Checkout theos/theos
+        uses: actions/checkout@main
+        with:
+          repository: theos/theos
+          ref: master
+          submodules: recursive
+          path: theos
 
-    - name: Install dependencies
-      run: make
+      - name: Checkout theos/sdks
+        uses: actions/checkout@main
+        with:
+          repository: theos/sdks
+          ref: master
+          sparse-checkout: iPhoneOS16.5.sdk
+          path: theos/sdks
 
-    - name: Run check
-      run: make check
+      - name: Checkout LibGcUniversalDocumentation/master
+        uses: actions/checkout@main
+        with:
+          repository: MrGcGamer/LibGcUniversalDocumentation
+          path: LibGcUniversalDocumentation
 
-    - name: Run distcheck
-      run: make distcheck
+      - name: Build package
+        run: |
+          brew install make ldid
+          THEOS=theos gmake clean package TARGET="iphone:clang:16.5:14.0" FINALPACKAGE=1 THEOS_PACKAGE_SCHEME=rootless
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: packages/*.deb
